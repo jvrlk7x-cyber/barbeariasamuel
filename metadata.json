@@ -1,0 +1,8 @@
+{
+  "name": "Remix Barbearia Premium | Estilo Masculino",
+  "description": "Site profissional e moderno para barbearia masculina. Cortes, barba, sobrancelha e tratamentos com agendamento direto pelo WhatsApp.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
