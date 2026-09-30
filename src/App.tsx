@@ -3,78 +3,36 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useState } from 'react';
+import React from 'react';
 import { Header } from './components/Header';
 import { Hero } from './components/Hero';
-import { Services } from './components/Services';
-import { HighlightSection } from './components/HighlightSection';
-import { Gallery } from './components/Gallery';
-import { About } from './components/About';
+import { PricingTable } from './components/PricingTable';
 import { OpeningHours } from './components/OpeningHours';
-import { BookingCta } from './components/BookingCta';
-import { Contact } from './components/Contact';
+import { FloatingSocialCorner } from './components/FloatingSocialCorner';
 import { Footer } from './components/Footer';
-import { FloatingWhatsApp } from './components/FloatingWhatsApp';
-import { BookingModal } from './components/BookingModal';
-import { ServiceItem } from './config/barbershop';
 
 export default function App() {
-  const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
-  const [selectedService, setSelectedService] = useState<ServiceItem | null>(null);
-
-  const handleOpenBooking = () => {
-    setSelectedService(null);
-    setIsBookingModalOpen(true);
-  };
-
-  const handleSelectService = (service: ServiceItem) => {
-    setSelectedService(service);
-    setIsBookingModalOpen(true);
-  };
-
   return (
-    <div className="min-h-screen bg-[#09090b] text-[#f4f4f5] flex flex-col selection:bg-orange-600 selection:text-white">
-      {/* 1. Fixed Header */}
-      <Header onOpenBooking={handleOpenBooking} />
+    <div className="min-h-screen bg-[#09090b] text-[#f4f4f5] flex flex-col selection:bg-amber-500 selection:text-zinc-950 font-sans">
+      {/* 1. Header Fixo com Menu Hamburger Mobile */}
+      <Header />
 
       <main className="flex-1">
         {/* 2. Hero Section */}
-        <Hero onOpenBooking={handleOpenBooking} />
+        <Hero />
 
-        {/* 3. Nossos Serviços */}
-        <Services onSelectService={handleSelectService} />
+        {/* 3. Tabela de Serviços com Seleção Interativa */}
+        <PricingTable />
 
-        {/* 4. Seção de Destaque */}
-        <HighlightSection onOpenBooking={handleOpenBooking} />
-
-        {/* 5. Galeria (Transformações) */}
-        <Gallery onOpenBooking={handleOpenBooking} />
-
-        {/* 6. Sobre (Mais que um corte. Uma experiência.) */}
-        <About />
-
-        {/* 7. Horário de Funcionamento */}
-        <OpeningHours onOpenBooking={handleOpenBooking} />
-
-        {/* 8. Agendamento CTA */}
-        <BookingCta />
-
-        {/* 9. Contato */}
-        <Contact />
+        {/* 4. Horário de Funcionamento */}
+        <OpeningHours />
       </main>
 
-      {/* 10. Footer */}
+      {/* 5. Rodapé */}
       <Footer />
 
-      {/* 11. Botão Flutuante do WhatsApp */}
-      <FloatingWhatsApp />
-
-      {/* 12. Modal de Agendamento */}
-      <BookingModal
-        isOpen={isBookingModalOpen}
-        onClose={() => setIsBookingModalOpen(false)}
-        preSelectedService={selectedService}
-      />
+      {/* 6. Símbolos do Instagram e WhatsApp no Canto da Tela */}
+      <FloatingSocialCorner />
     </div>
   );
 }

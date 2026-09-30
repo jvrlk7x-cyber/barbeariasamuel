@@ -1,60 +1,33 @@
-/**
- * Configuração central da Barbearia
- * Edite facilmente os dados de contato, redes sociais, endereço e serviços nesta seção.
- */
-
-import heroInteriorImg from '@/src/assets/images/hero_barber_interior_1790640804100.jpg';
-import barberCutImg from '@/src/assets/images/barber_cut_precision_1790640815193.jpg';
-import gentlemanImg from '@/src/assets/images/gentleman_haircut_beard_1790640825438.jpg';
-import barberToolsImg from '@/src/assets/images/barber_craft_tools_1790640835043.jpg';
-
-export interface ServiceItem {
+export interface PriceItem {
   id: string;
   name: string;
+  category: string;
+  price: string;
+  estimatedTime?: string;
   description: string;
-  tag: string;
-}
-
-export interface GalleryItem {
-  id: string;
-  title: string;
-  category: 'Corte' | 'Barba' | 'Freestyle' | 'Química' | 'Ambiente';
-  image: string;
-  alt: string;
+  popular?: boolean;
 }
 
 export const BARBERSHOP_CONFIG = {
-  // Nome e identidade da barbearia
   name: "Barbearia Samuel",
-  slogan: "SEU ESTILO. NOSSO TRABALHO.",
-  shortDescription: "Precisão, estilo e cuidado em cada detalhe. Transforme seu visual com um atendimento profissional na Barbearia Samuel.",
+  tagline: "Cortes Modernos & Barba Impecável",
+  shortDescription: "Atendimento exclusivo com pontualidade, toalha quente e acabamento na navalha. Venha renovar seu visual.",
+  ctaPhrase: "Cansado daquele corte sem graça? Venha para a Barbearia Samuel e renove seu estilo com quem entende do assunto.",
   
-  // Contato & WhatsApp
-  // URL solicitada: https://wa.me/5561996556761
+  // Contato & Redes Sociais
   whatsapp: {
     rawNumber: "5561996556761",
     displayNumber: "(61) 99655-6761",
-    url: "https://wa.me/5561996556761",
-    defaultMessage: "Olá! Gostaria de agendar um horário na Barbearia Samuel.",
+    url: "https://wa.me/5561996556761?text=Ol%C3%A1%2C%20Samuel!%20Gostaria%20de%20agendar%20um%20hor%C3%A1rio%20na%20Barbearia.",
     buildUrlWithService: (serviceName: string) => 
-      `https://wa.me/5561996556761?text=${encodeURIComponent(`Olá! Gostaria de agendar um horário na Barbearia Samuel para o serviço: ${serviceName}. Quais os horários disponíveis?`)}`
+      `https://wa.me/5561996556761?text=Ol%C3%A1%2C%20Samuel!%20Gostaria%20de%20agendar%20o%20servi%C3%A7o%3A%20${encodeURIComponent(serviceName)}.`
   },
 
-  // Campos preparados para fácil edição posterior (sem dados inventados)
   instagram: {
-    handle: "[@suabarbearia - Adicione seu Instagram]",
-    url: "https://instagram.com/",
-    isConfigured: false // Indica que é um placeholder para edição
+    handle: "@barbearia_samuel",
+    url: "https://www.instagram.com/barbearia_samuel/"
   },
 
-  address: {
-    text: "[Endereço não informado - Adicione aqui sua localização]",
-    cityState: "Brasília - DF",
-    mapsUrl: "#contato",
-    isConfigured: false // Indica que é um placeholder para edição
-  },
-
-  // Horários oficiais solicitados
   openingHours: {
     weekdays: {
       days: "Segunda a Sábado",
@@ -70,103 +43,77 @@ export const BARBERSHOP_CONFIG = {
     }
   },
 
-  // Serviços solicitados com descrições sem inventar preços
-  services: [
+  // Serviços e Procedimentos individuais (selecionáveis pelo cliente)
+  prices: [
+    // 1. Corte
     {
       id: "corte",
       name: "Corte",
-      description: "Cortes modernos e personalizados de acordo com seu estilo.",
-      tag: "Clássico & Moderno"
+      category: "Individual",
+      price: "R$ 30",
+      estimatedTime: "35 min",
+      description: "Degradê navalhado (Fade, taper, militar, low/mid/high) ou clássico na tesoura com finalização e pomada.",
+      popular: true
     },
+    // 2. Barba
     {
       id: "barba",
       name: "Barba",
-      description: "Acabamento preciso para deixar sua barba alinhada e bem cuidada.",
-      tag: "Alinhamento & Toalha Quente"
+      category: "Individual",
+      price: "R$ 30",
+      estimatedTime: "30 min",
+      description: "Desenho da barba, toalha quente relaxante, esfoliação facial, navalha afiada e óleo hidratante especial.",
+      popular: false
     },
+    // 3. Sobrancelha
     {
       id: "sobrancelha",
       name: "Sobrancelha",
-      description: "Design e alinhamento sob medida para valorizar a expressão do seu rosto.",
-      tag: "Design Masculino"
+      category: "Individual",
+      price: "R$ 5",
+      estimatedTime: "15 min",
+      description: "Limpeza e alinhamento milimétrico na navalha e pinça, mantendo a naturalidade da expressão masculina.",
+      popular: false
     },
+    // 4. Pigmentação
     {
       id: "pigmentacao",
       name: "Pigmentação",
-      description: "Disfarce de falhas e realce de contornos para um efeito denso e natural.",
-      tag: "Definição & Densidade"
+      category: "Individual",
+      price: "R$ 25",
+      estimatedTime: "25 min",
+      description: "Correção de falhas, realce de contorno e preenchimento de fios para um contraste impecável.",
+      popular: false
     },
+    // 5. Freestyle
     {
       id: "freestyle",
       name: "Freestyle",
-      description: "Desenhos artísticos e linhas personalizadas com extrema precisão.",
-      tag: "Arte & Identidade"
+      category: "Individual",
+      price: "A partir de R$ 15",
+      estimatedTime: "20 min",
+      description: "Riscas laterais, desenhos geométricos, tribais ou arte personalizada feita com navalhete de precisão.",
+      popular: true
     },
+    // 6. Luzes
     {
       id: "luzes",
       name: "Luzes",
-      description: "Mechas e clareamentos masculinos com técnicas e acabamento profissional.",
-      tag: "Estilo & Tom"
+      category: "Individual",
+      price: "A partir de R$ 80",
+      estimatedTime: "90 min",
+      description: "Descoloração segura masculina, matização e hidratação profunda para quem busca estilo marcante.",
+      popular: false
     },
+    // 7. Química em geral
     {
       id: "quimica",
       name: "Química em geral",
-      description: "Alisamentos, relaxamentos e tratamentos capilares com produtos de alto padrão.",
-      tag: "Cuidado & Textura"
+      category: "Individual",
+      price: "A partir de R$ 60",
+      estimatedTime: "60 min",
+      description: "Alisamentos, selagem térmica, relaxamento e tratamentos capilares com cosméticos de alto padrão.",
+      popular: false
     }
-  ] as ServiceItem[],
-
-  // Imagens principais do projeto
-  images: {
-    hero: heroInteriorImg,
-    barberCut: barberCutImg,
-    gentleman: gentlemanImg,
-    tools: barberToolsImg
-  },
-
-  // Galeria de transformações
-  gallery: [
-    {
-      id: "gal-1",
-      title: "Corte Degradê & Acabamento Navalhado",
-      category: "Corte",
-      image: gentlemanImg,
-      alt: "Corte masculino moderno com fade alinhado"
-    },
-    {
-      id: "gal-2",
-      title: "Barboterapia & Alinhamento de Fios",
-      category: "Barba",
-      image: barberCutImg,
-      alt: "Barba desenhada com precisão profissional"
-    },
-    {
-      id: "gal-3",
-      title: "Estrutura & Ambiente Exclusivo",
-      category: "Ambiente",
-      image: heroInteriorImg,
-      alt: "Espaço premium com cadeiras clássicas e iluminação aconchegante"
-    },
-    {
-      id: "gal-4",
-      title: "Instrumentos & Produtos Nobres",
-      category: "Química",
-      image: barberToolsImg,
-      alt: "Ferramentas tradicionais de alta qualidade"
-    },
-    {
-      id: "gal-5",
-      title: "Precisão & Simetria em Tesoura",
-      category: "Corte",
-      image: barberCutImg,
-      alt: "Ajuste milimétrico de corte masculino"
-    },
-    {
-      id: "gal-6",
-      title: "Linhas Artísticas & Freestyle",
-      category: "Freestyle",
-      image: gentlemanImg,
-      alt: "Trabalho detalhado de linhas e contorno"
-    }
-  ] as GalleryItem[]
+  ] as PriceItem[]
 };
